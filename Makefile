@@ -99,7 +99,7 @@ $(DEP_PATH)/%.d: %.c | $(NEW_DIRS)
 $(NAME): $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) -o $@ $(LDFLAGS)
 
-.PHONY: clean fclean all push update_manpath tags debug
+.PHONY: all clean fclean re push update_manpath tags debug format
 
 all: $(NAME)
 
@@ -112,11 +112,6 @@ fclean: clean
 
 re: fclean
 	@make --no-print-directory all
-
-debug:
-	@make --no-print-directory re FLAGS="$(DEBUG_FLAGS)"
-	@make --no-print-directory clean
-	@mv $(NAME) debug
 
 pull:
 	@git pull
@@ -133,3 +128,11 @@ update_manpath:
 
 tags:
 	@ctags --extras-all=* --fields-all=* --c-kinds=* --c++-kinds=* $(CSRC) $(CHDR) $(CPPSRC) $(CPPHDR)
+
+debug:
+	@make --no-print-directory re FLAGS="$(DEBUG_FLAGS)"
+	@make --no-print-directory clean
+	@mv $(NAME) debug
+
+format:
+	clang-format -i $(CSRC) $(CHDR) $(CPPSRC) $(CPPHDR)
