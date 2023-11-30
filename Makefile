@@ -31,12 +31,12 @@ OBJ_PATH :=			./OBJ
 EXCLUDE_DIRS :=		$(DEP_PATH) $(OBJ_PATH) ./.git
 EXCLUDE_FILES :=	./tags
 
-CPPHDR :=				$(shell find . \
+CPPHDR :=			$(shell find . \
 						$(foreach PATH, $(EXCLUDE_DIRS), -path "$(PATH)" -prune -o)\
 						$(foreach FILE, $(EXCLUDE_FILES), -path "$(FILE)" -prune -o)\
 						-type f -and -name "*.hpp" -print)
 CPPHDR :=				$(CPPHDR:./%=%)
-CPPSRC :=				$(shell find . \
+CPPSRC :=			$(shell find . \
 						$(foreach PATH, $(EXCLUDE_DIRS), -path "$(PATH)" -prune -o)\
 						$(foreach FILE, $(EXCLUDE_FILES), -path "$(FILE)" -prune -o)\
 						-type f -and -name "*.cpp" -print)
